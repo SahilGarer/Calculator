@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Orbitron:wght@400..900&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root{
+     --BG-PAGE:    #0a0f14;
+    --BG-HEADER:  #0d1a24;
+    --BG-CARD:    #111c27;
+    --BG-MENU:    #0d1a24;
+
+    --ACCENT:     #1D9E75;
+    --ACCENT-LT:  #5DCAA5;
+    --ACCENT-DIM: rgba(29,158,117,0.12);
+
+    --TEXT-PRI:   #e8f4f0;
+    --TEXT-SEC:   #7a9e94;
+    --TEXT-MUTED: #3d5c54;
+
+    --BORDER:     rgba(29,158,117,0.18);
+    --BORDER-HVR: rgba(29,158,117,0.55);
+}
+body{
+    display: flex;
+    border: 2px solid black;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--BG-PAGE);
+    
+}
+.calculator{
+    border: 1px solid var(--BORDER);
+    padding: 1rem;
+    background-color: var(--BG-CARD);
+    border-radius: 10px;
+}
+main{
+    display:flex;
+    flex-wrap: wrap;    
+    max-width: 375px;
+    width: 100%;
+    height:auto;
+    position: relative;
+}
+.input input{
+    max-width: 375px;
+    width: 100%;
+    height: 10vh;
+    font-size: 2rem;
+    border-radius: 10px;
+    border-color: #1D9E75;
+    color: var(--TEXT-SEC);
+    font-family: "Orbitron", sans-serif;
+}
+.input input:focus{
+    outline: none;
+}
+.numbers-key{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    background-color: var(--BG-CARD);
+}
+.operators {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    width: auto;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;   
+    background-color: var(--BG-CARD);
+}
+.numbers-key button{
+    margin: 1rem  0.6rem;
+    width: 40px;
+    padding: 0.6rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    background-color:var(--ACCENT-LT);
+    border: 1px solid var(--BORDER);
+    border-radius: 10px;
+    font-family: "Orbitron", sans-serif;
+}
+.numbers-key button:hover{
+    border: 1px solid var(--BORDER-HVR);
+    background-color:var(--ACCENT);
+    color: #fff;
+    font-weight: bold;
+}
+
+.operators button{
+    margin: 1rem;
+    width: 30px;
+    padding: 0.3rem;
+    background-color:var(--ACCENT-LT);
+    border: 1px solid var(--BORDER);
+    border-radius: 10px;
+    font-family: "Orbitron", sans-serif;
+}
+.operators button:hover{
+    border: 1px solid var(--BORDER-HVR);
+    background-color:var(--ACCENT);
+    color: #fff;
+    font-weight: bold;
+}
+
+ 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simple calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="calculator.js" defer>
+    </script>
+</head>
+
+<body>
+    <div class="calculator">
+        <section class="input">
+            <input id="num1" type="text" readonly aria-label="calculator display">
+        </section>
+        <main>
+            <section class="numbers-key">
+                <button id="one" onclick="appendnumber('1')">1</button>
+                <button id="two" onclick="appendnumber('2')">2</button>
+                <button id="three" onclick="appendnumber('3')">3</button>
+                <button id="four" onclick="appendnumber('4')">4</button>
+                <button id="five" onclick="appendnumber('5')">5</button>
+                <button id="six" onclick="appendnumber('6')">6</button>
+                <button id="seven" onclick="appendnumber('7')">7</button>
+                <button id="eight" onclick="appendnumber('8')">8</button>
+                <button id="nine" onclick="appendnumber('9')">9</button>
+                <button id="zero" onclick="appendnumber('0')">0</button>
+                <button id="dot" onclick="appendnumber('00')">00</button>
+                <button id="dot" onclick="appendnumber('.')">.</button>
+                <button id="reset" onclick="displayClear()">C</button>
+                <button id="plus" onclick="setoperator('+')">+</button>
+                <button id="minus" onclick="setoperator('-')">-</button>
+                <button id="divide" onclick="setoperator('/')">÷</button>
+                <button id="multiply" onclick="setoperator('*')">×</button>
+                <button id="calculate" onclick="calculate()">=</button>
+            </section>
+            <section class="operators">    
+                
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>
