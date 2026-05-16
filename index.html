@@ -4,43 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>simple calculator</title>
+    <title>Simple Calculator</title>
+
     <link rel="stylesheet" href="style.css">
-    <script src="calculator.js" defer>
-    </script>
+    <script src="calculator.js" defer></script>
 </head>
 
 <body>
-    <div class="calculator">
-        <section class="input">
-            <input id="num1" type="text" readonly aria-label="calculator display">
-        </section>
-        <main>
-            <section class="numbers-key">
-                <button id="one" onclick="appendnumber('1')">1</button>
-                <button id="two" onclick="appendnumber('2')">2</button>
-                <button id="three" onclick="appendnumber('3')">3</button>
-                <button id="four" onclick="appendnumber('4')">4</button>
-                <button id="five" onclick="appendnumber('5')">5</button>
-                <button id="six" onclick="appendnumber('6')">6</button>
-                <button id="seven" onclick="appendnumber('7')">7</button>
-                <button id="eight" onclick="appendnumber('8')">8</button>
-                <button id="nine" onclick="appendnumber('9')">9</button>
-                <button id="zero" onclick="appendnumber('0')">0</button>
-                <button id="dot" onclick="appendnumber('00')">00</button>
-                <button id="dot" onclick="appendnumber('.')">.</button>
-                <button id="reset" onclick="displayClear()">C</button>
-                <button id="plus" onclick="setoperator('+')">+</button>
-                <button id="minus" onclick="setoperator('-')">-</button>
-                <button id="divide" onclick="setoperator('/')">÷</button>
-                <button id="multiply" onclick="setoperator('*')">×</button>
-                <button id="calculate" onclick="calculate()">=</button>
-            </section>
-            <section class="operators">    
-                
-            </section>
-        </main>
-    </div>
-</body>
 
+<div class="app">
+
+    <!-- SIDEBAR (HISTORY) -->
+    <aside class="sidebar">
+        <div class="history">
+            <h3 style="color:white; font-family:Orbitron;">HISTORY</h3>
+            <ul id="historylist"></ul>
+
+            <button onclick="clearhistory()"
+                style="margin-top:10px; padding:5px;">
+                Clear History
+            </button>
+        </div>
+    </aside>
+
+    <!-- HISTORY TOGGLE BUTTON -->
+    <div class="historybtn">
+        <button id="showhistorybtn" onclick="showhistorybar()">
+            SHOW HISTORY
+        </button>
+    </div>
+
+    <!-- CALCULATOR -->
+    <div class="calculator">
+
+        <div class="calc-box">
+
+            <!-- DISPLAY -->
+            <section class="input">
+                <input id="num1" type="text" readonly>
+            </section>
+
+            <!-- KEYPAD -->
+            <main>
+
+                <section class="numbers-key">
+
+                    <button onclick="appendnumber('1')">1</button>
+                    <button onclick="appendnumber('2')">2</button>
+                    <button onclick="appendnumber('3')">3</button>
+                    <button onclick="appendnumber('4')">4</button>
+                    <button onclick="appendnumber('5')">5</button>
+                    <button onclick="appendnumber('6')">6</button>
+                    <button onclick="appendnumber('7')">7</button>
+                    <button onclick="appendnumber('8')">8</button>
+                    <button onclick="appendnumber('9')">9</button>
+                    <button onclick="appendnumber('0')">0</button>
+                    <button onclick="appendnumber('.')">.</button>
+
+                    
+                    <button onclick="setoperator('+')">+</button>
+                    <button onclick="setoperator('-')">-</button>
+                    <button onclick="setoperator('*')">×</button>
+                    <button onclick="setoperator('/')">÷</button>
+                    
+                    <button onclick="calculate()">=</button>
+
+                    <button onclick="deletenumber()"><img src="delete.png" alt="backspace icon" width="20px" height="18px"></button>
+                    <button onclick="displayClear()">C</button>
+
+                </section>
+
+            </main>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
 </html>
