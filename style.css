@@ -1,113 +1,169 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Orbitron:wght@400..900&display=swap');
-*{
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-:root{
-     --BG-PAGE:    #0a0f14;
-    --BG-HEADER:  #0d1a24;
+
+:root {
+    --BG-PAGE:    #0a0f14;
     --BG-CARD:    #111c27;
     --BG-MENU:    #0d1a24;
 
     --ACCENT:     #1D9E75;
     --ACCENT-LT:  #5DCAA5;
-    --ACCENT-DIM: rgba(29,158,117,0.12);
 
     --TEXT-PRI:   #e8f4f0;
     --TEXT-SEC:   #7a9e94;
-    --TEXT-MUTED: #3d5c54;
 
     --BORDER:     rgba(29,158,117,0.18);
     --BORDER-HVR: rgba(29,158,117,0.55);
 }
-body{
-    display: flex;
-    border: 2px solid black;
-    justify-content: center;
-    align-items: center;
+
+/* ---------- BODY ---------- */
+body {
     width: 100%;
     height: 100vh;
-    background-color: var(--BG-PAGE);
-    
+    background: var(--BG-PAGE);
 }
-.calculator{
-    border: 1px solid var(--BORDER);
-    padding: 1rem;
-    background-color: var(--BG-CARD);
-    border-radius: 10px;
-}
-main{
-    display:flex;
-    flex-wrap: wrap;    
-    max-width: 375px;
-    width: 100%;
-    height:auto;
-    position: relative;
-}
-.input input{
-    max-width: 375px;
-    width: 100%;
-    height: 10vh;
-    font-size: 2rem;
-    border-radius: 10px;
-    border-color: #1D9E75;
-    color: var(--TEXT-SEC);
-    font-family: "Orbitron", sans-serif;
-}
-.input input:focus{
-    outline: none;
-}
-.numbers-key{
+
+/* ---------- MAIN APP LAYOUT ---------- */
+.app {
     display: flex;
-    flex-flow: row wrap;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+    width: 0;
+    height: 100%;
+    background: var(--BG-MENU);
+    color: var(--TEXT-PRI);
+    padding: 0;
+
+    border-right: 1px solid var(--BORDER);
+
+    transition: width 0.35s ease, padding 0.35s ease;
+    overflow: hidden;
+}
+
+/* collapsed sidebar */
+.sidebar.active {
+    width: 260px;
+    padding: 20px;
+    border: none;
+}
+
+/* history list */
+.history {
+    font-family: "Nunito", sans-serif;
+}
+
+#historylist {
+    list-style: none;
+    color: var(--TEXT-SEC);
+    margin-top: 10px;
+}
+
+/* ---------- HISTORY BUTTON ---------- */
+.historybtn button {
+    width: 140px;
+    padding: 0.5rem;
+
+    background: var(--ACCENT-LT);
+    border: 1px solid var(--BORDER);
+    border-radius: 10px;
+
+    font-family: "Orbitron", sans-serif;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+    z-index: 10;
+}
+
+.historybtn button:hover {
+    background: var(--ACCENT);
+    color: white;
+}
+
+
+/* ---------- CALCULATOR ---------- */
+.calculator {
+    flex: 1;
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
-    background-color: var(--BG-CARD);
 }
-.operators {
+
+/* calculator box (your wrapper) */
+.calc-box {
+    border: 1px solid var(--BORDER);
+    padding: 1rem;
+    background: var(--BG-CARD);
+    border-radius: 10px;
+    width: 320px;
+}
+
+/* ---------- INPUT ---------- */
+.input input {
+    width: 100%;
+    height: 70px;
+    font-size: 2rem;
+    border-radius: 10px;
+
+    border: 1px solid var(--ACCENT);
+    background: transparent;
+
+    color: var(--TEXT-SEC);
+    font-family: "Orbitron", sans-serif;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.input input:focus {
+    outline: none;
+}
+
+/* ---------- NUMBERS ---------- */
+.numbers-key {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    width: auto;
-    position: absolute;
-    bottom: 0%;
-    right: 0%;   
-    background-color: var(--BG-CARD);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
 }
-.numbers-key button{
-    margin: 1rem  0.6rem;
-    width: 40px;
+
+.numbers-key button {
+    width: 60px;
+    margin: 6px;
     padding: 0.6rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    background-color:var(--ACCENT-LT);
+
+    background: var(--ACCENT-LT);
     border: 1px solid var(--BORDER);
     border-radius: 10px;
+
     font-family: "Orbitron", sans-serif;
-}
-.numbers-key button:hover{
-    border: 1px solid var(--BORDER-HVR);
-    background-color:var(--ACCENT);
-    color: #fff;
-    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
-.operators button{
-    margin: 1rem;
-    width: 30px;
-    padding: 0.3rem;
-    background-color:var(--ACCENT-LT);
-    border: 1px solid var(--BORDER);
-    border-radius: 10px;
-    font-family: "Orbitron", sans-serif;
-}
-.operators button:hover{
+.numbers-key button:hover {
+    background: var(--ACCENT);
+    color: white;
     border: 1px solid var(--BORDER-HVR);
-    background-color:var(--ACCENT);
-    color: #fff;
-    font-weight: bold;
 }
 
- 
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+    .sidebar {
+        position: absolute;
+        z-index: 100;
+        height: 100vh;
+    }
+
+    .calc-box {
+        width: 90%;
+    }
+}
