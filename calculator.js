@@ -1,101 +1,189 @@
-//SIMPLE CALCULATOR FUNCTION
+// =======================
+// CALCULATOR STATE
+// =======================
 let input1 = "";
-let operator= "";
 let input2 = "";
-function appendnumber(num){    
-    
+let operator = "";
+let result = "";
+let expression = "";
+
+// =======================
+// INPUT HANDLING
+// =======================
+function appendnumber(num) {
     input1 += num;
-    document.getElementById("num1").value=input1;
-    
+    document.getElementById("num1").value = input1;
 }
-document.addEventListener("keydown",
-    function(event){
-        if(event.key >= "0" && event.key <= "9"){
-            appendnumber(Number(event.key));
-        }
-    });
-function setoperator(op){
-    if(input1 === ""){
-        return;
-    }
-    if(input2 !==""){
+
+function setoperator(op) {
+    if (input1 === "") return;
+
+    if (input2 !== "") {
         calculate();
     }
+
     input2 = input1;
     operator = op;
     input1 = "";
 }
-document.addEventListener("keydown",
-    function(operator){
-        if(operator.key === "+"){
-            setoperator("+");
-        }
-        if(operator.key === "*"){
-            setoperator("*");
-        }if(operator.key === "/"){
-            setoperator("/");
-        }if(operator.key === "-"){
-            setoperator("-");
-        }if(operator.key === "="){
-            calculate();
-        }
-    });
-    document.addEventListener("keydown",
-        function(enter){
-            if(enter.key === "Enter"){
-                calculate();
-            }
-        }
-    )
 
+// =======================
+// CALCULATION
+// =======================
+function calculate() {
+    if (operator === "" || input2 === "" || input1 === "") return;
 
-function calculate(){
     let num1 = Number(input2);
     let num2 = Number(input1);
-    let num3;
-    if(operator==="+"){
-        num3 = num1+num2;
+
+    if (operator === "+") {
+        result = num1 + num2;
+        expression = `${num1} + ${num2}`;
     }
-    else if(operator==="-"){
-        num3 = num1-num2;
-    }else if(operator==="*"){
-        num3 = num1*num2;
-    }else if(operator==="/"){
-        if(num2 === 0){
-            alert("cannot divide by zero");
+
+    else if (operator === "-") {
+        result = num1 - num2;
+        expression = `${num1} - ${num2}`;
+    }
+
+    else if (operator === "*") {
+        result = num1 * num2;
+        expression = `${num1} × ${num2}`;
+    }
+
+    else if (operator === "/") {
+        if (num2 === 0) {
+            alert("Cannot divide by zero");
             return;
         }
-        num3 = num1/num2;
+        result = num1 / num2;
+        expression = `${num1} ÷ ${num2}`;
     }
-    if(operator===""){return;}
-    input1=num3.toString();
+
+    input1 = result.toString();
     input2 = "";
     operator = "";
-    document.getElementById("num1").value = input1;   
+
+    document.getElementById("num1").value = input1;
+
+    // IMPORTANT: save history correctly
+    addcalculation(expression, result);
+    displayhistory();
 }
-function displayClear(){
+
+// =======================
+// CLEAR
+// =======================
+function displayClear() {
     input1 = "";
     input2 = "";
     operator = "";
+    result = "";
+    expression = "";
     document.getElementById("num1").value = "";
 }
-document.addEventListener("keydown",
-    function(event){
-        if(event.key === "Delete"){
-            displayClear();
-        }
-    });
-    document.addEventListener("keydown",
-    function(event){
-        if(event.key === "Backspace"){
-            deletenumber();
-            
-        }
-    });
 
-function deletenumber(num){
-    input1 = input1.slice(0,-1); 
-        document.getElementById("num1").value=input1;
-    
-
+// =======================
+// DELETE LAST DIGIT
+// =======================
+function deletenumber() {
+    input1 = input1.slice(0, -1);
+    document.getElementById("num1").value = input1;
 }
+
+// =======================
+// HISTORY
+// =======================
+let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+
+function addcalculation(expr, res) {
+    if (!expr || res === undefined) return;
+
+    let item = `${expr} = ${res}`;
+    history.push(item);
+
+    localStorage.setItem("calcHistory", JSON.stringify(history));
+
+    if (history.length > 1200) {
+        history.shift();
+    }
+}
+
+function displayhistory() {
+    let list = document.getElementById("historylist");
+    list.innerHTML = "";
+
+    history.forEach((item) => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+    });
+}
+
+function clearhistory() {
+    history = [];
+    localStorage.removeItem("calcHistory");
+    displayhistory();
+}
+
+// =======================
+// SIDEBAR TOGGLE
+// =======================
+function showhistorybar() {
+    const sidebar = document.querySelector(".sidebar");
+    const btn = document.getElementById("showhistorybtn");
+
+    sidebar.classList.toggle("active");
+
+    btn.textContent = sidebar.classList.contains("active")
+        ? "HIDE HISTORY"
+        : "SHOW HISTORY";
+}
+
+// =======================
+// KEYBOARD INPUT (FIXED - SINGLE HANDLER)
+// =======================
+document.addEventListener("keydown", function (event) {
+
+    const key = event.key;
+
+    // Numbers
+    if (key >= "0" && key <= "9") {
+        appendnumber(key);
+    }
+
+    // Decimal
+    else if (key === ".") {
+        appendnumber(".");
+    }
+
+    // Operators
+    else if (key === "+") setoperator("+");
+    else if (key === "-") setoperator("-");
+    else if (key === "*") setoperator("*");
+    else if (key === "/") setoperator("/");
+
+    // Enter = calculate
+    else if (key === "Enter") {
+        event.preventDefault();
+        calculate();
+    }
+
+    // Backspace = delete
+    else if (key === "Backspace") {
+        event.preventDefault();
+        deletenumber();
+    }
+
+    // Clear
+    else if (key === "Delete") {
+        displayClear();
+    }
+});
+
+// =======================
+// INIT HISTORY ON LOAD
+// =======================
+window.onload = function () {
+    displayhistory();
+};
