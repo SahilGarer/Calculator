@@ -24,13 +24,16 @@
 /* ---------- BODY ---------- */
 body {
     width: 100%;
-    height: 100vh;
+    min-height: 100dvh;
     background: var(--BG-PAGE);
 }
 
 /* ---------- MAIN APP LAYOUT ---------- */
 .app {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -38,23 +41,34 @@ body {
 
 /* ---------- SIDEBAR ---------- */
 .sidebar {
-    width: 0;
-    height: 100%;
+    width: 100%;
+    height: 0;
     background: var(--BG-MENU);
     color: var(--TEXT-PRI);
     padding: 0;
 
     border-right: 1px solid var(--BORDER);
 
-    transition: width 0.35s ease, padding 0.35s ease;
+    transition: height 0.35s ease;
     overflow: hidden;
+    overflow-y: auto;
 }
 
 /* collapsed sidebar */
 .sidebar.active {
-    width: 260px;
+    height: 50vh;
     padding: 20px;
     border: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+#historylist::-webkit-scrollbar {
+    width: 6px;
+}
+
+#historylist::-webkit-scrollbar-thumb {
+    background: var(--ACCENT);
+    border-radius: 10px;
 }
 
 /* history list */
@@ -65,6 +79,7 @@ body {
 #historylist {
     list-style: none;
     color: var(--TEXT-SEC);
+    font-size: clamp(0.8rem,2.8vw,1em);
     margin-top: 10px;
 }
 
@@ -72,7 +87,6 @@ body {
 .historybtn button {
     width: 140px;
     padding: 0.5rem;
-
     background: var(--ACCENT-LT);
     border: 1px solid var(--BORDER);
     border-radius: 10px;
@@ -81,6 +95,7 @@ body {
     cursor: pointer;
 
     transition: 0.2s ease;
+    position: relative;
     z-index: 10;
 }
 
@@ -105,6 +120,7 @@ body {
     background: var(--BG-CARD);
     border-radius: 10px;
     width: 320px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 /* ---------- INPUT ---------- */
@@ -117,7 +133,7 @@ body {
     border: 1px solid var(--ACCENT);
     background: transparent;
 
-    color: var(--TEXT-SEC);
+    color: var(--TEXT-PRI);
     font-family: "Orbitron", sans-serif;
     text-align: right;
     padding-right: 10px;
@@ -136,10 +152,11 @@ body {
 }
 
 .numbers-key button {
-    width: 60px;
+    flex: 1 0 20%;
+    max-width: 70px;
     margin: 6px;
     padding: 0.6rem;
-
+    font-weight: 900;
     background: var(--ACCENT-LT);
     border: 1px solid var(--BORDER);
     border-radius: 10px;
@@ -154,16 +171,43 @@ body {
     color: white;
     border: 1px solid var(--BORDER-HVR);
 }
+.numbers-key button:active {
+    transform: scale(0.95);
+}
 
 /* ---------- RESPONSIVE ---------- */
-@media (max-width: 600px) {
+@media (min-width: 600px) {
+    body{
+        max-width: 1440px;
+        width: 100%;
+    }
+    .app{
+        display: flex;
+        flex-direction: row;
+        align-items:stretch;
+        height: 100dvh;
+    }
     .sidebar {
-        position: absolute;
+        position: relative;
+        left: 0%;
+        width: 0;
         z-index: 100;
+        height: 100dvh;
+        transition: width 0.35s ease;
+        overflow-y: auto;
+    }
+    .sidebar.active{
+        width: 260px;
         height: 100vh;
     }
-
+    .calculator {
+        flex: 1;               /* ✅ takes remaining space */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .calc-box {
-        width: 90%;
+        width: 400px;
+        position: relative;
     }
 }
